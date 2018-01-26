@@ -123,9 +123,13 @@ class ContentBlockerHelper {
         }
         ContentBlockerHelper.heavyInitHasRunOnce = true
 
+        Profiler.begin(bookend: .load_trackingprotection_lists)
+
         removeOldListsByDateFromStore() {
             self.removeOldListsByNameFromStore() {
-                self.compileListsNotInStore(completion: {})
+                self.compileListsNotInStore(completion: {
+                    Profiler.end(bookend: .load_trackingprotection_lists)
+                })
             }
         }
 
